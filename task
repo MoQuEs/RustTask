@@ -1,0 +1,128 @@
+# Zadanie:
+[ENG]#task:
+
+[PL] Napisz program CLI, którego zadaniem jest przekonwertowanie plików z formatu INPUT na format OUTPUT, których opis znajduje się poniżej.
+Przepisz wszystkie pola, które są wspólne w obu formatach. Brakujące wartości pobierz z plików `hotels.json` oraz `room_names.csv`.
+
+Uwaga: nie wolno modyfikować żadnych plików załączonych w zadaniu.
+Uwaga 2: miej na uwadze, że plik wejściowy (input.csv) może mieć rozmiar rzędu dziesiątek GB. Pliki `hotels.json` oraz `room_names.csv` mają rozmiary rzędu setek MB.
+-----------------------------------
+[ENG] Write a CLI program whose task is to convert files from INPUT format to OUTPUT format, whose description is given below.
+Rewrite all fields that are common in both formats. Download missing values ​​from the files `hotels.json` and` room_names.csv`.
+
+Note: Do not modify any files attached to the task.
+Note 2: keep in mind that the input file (input.csv) can have tens of GB in size. The `hotels.json` and` room_names.csv` files are hundreds of MB in size.
+
+## Format INPUT:
+
+```
+city_code|hotel_code|room_type|room_code|meal|checkin|adults|children|price|source
+```
+
+```
+city_code  - trzyliterowy kod miasta [ENG: 3-letters city code]
+hotel_code - kod hotelu [ENG: hotel code]
+room_type  - kod typu pokoju [ENG: room type code]
+room_code  - kod pokoju [ENG: room code]
+meal       - kod posiłku [ENG: meal code]
+checkin    - data przyjazdu [ENG: arrival date]
+adults     - liczba dorosłych [ENG: no. of adults]
+children   - liczba dzieci [ENG: no. of children]
+price      - cena za pobyt [ENG: price]
+source     - nazwa źródła ceny [ENG: name of price source]
+```
+
+## Format OUTPUT:
+
+```
+room_type meal;room_code;source;hotel_name;city_name;city_code;hotel_category;pax;adults;children;room_name;checkin;checkout;price
+```
+
+```
+room_type meal - kod typu pokoju oraz kod posiłku oddzielone spacją [ENG: room code and meal code]
+room_code      - kod pokoju [ENG: room code]
+source         - nazwa źródła ceny [ENG: name of price source]
+hotel_name     - nazwa hotelu [ENG: hotel name]
+city_name      - nazwa miasta [ENG: name of the city]
+city_code      - trzyliterowy kod miasta [ENG: 3-letters city code]
+hotel_category - kategoria hotelu [ENG: hotel category]
+pax            - liczba podróżujących (suma dorosłych i dzieci) [ENG: number of travelers; sum of adults and children]
+adults         - liczba dorosłych [ENG: no.of adults]
+children       - liczba dzieci [ENG: no.of children]
+room_name      - nazwa pokoju [ENG: room name]
+checkin        - data przyjazdu [ENG: date of arrival]
+checkout       - data wyjazdu (na potrzeby zadania przyjmij, że checkout = checkin + 1 dzień) [ENG: date of checkout; please assume that checkout= checkin +1 day]
+price          - cena za pobyt ZA OSOBĘ [ENG: price per person]
+```
+
+## Format hotels.json:
+
+[PL] Uwaga: w każdej linii tego plik znajduje się prawidłowy obiekt w formacie JSON, jednak cały plik NIE JEST prawidłowym plikiem JSON.
+
+[ENG] Note: Each file has a valid JSON object in this line, but the entire file is NOT a valid JSON file
+
+```
+{
+  "id": "BER00003",                // kod hotelu [ENG: hotel code]
+  "city_code": "BER",              // trzyliterowy kod miasta [ENG: 3-letters city code]
+  "name": "Berlin Marriott Hotel", // nazwa hotelu [ENG: hotel name]
+  "category": 5.0,                 // kategoria hotelu [ENG: hotel category]
+  "country_code": "DE",            // dwuliterowy kod państwa [ENG: 2-letters state code]
+  "city": "Berlin"                 // nazwa miasta [ENG: city name]
+}
+```
+
+Format room_names.csv
+
+```
+hotel_code|source|room_name|room_code
+```
+
+```
+hotel_code - kod hotelu [ENG: hotel code]
+source     - nazwa źródła cen [ENG: name of price source]
+room_name  - nazwa pokoju [ENG: room name]
+room_code  - kod pokoju [ENG: room code]
+```
+
+## input.csv
+
+```
+city_code|hotel_code|room_type|room_code|meal|checkin|adults|children|price|source
+BER|BER00002|EZ|BER898|F|20180721|1|0|85.50|IHG
+BER|BER00002|EZ|BER898|F|20180722|1|0|78.00|IHG
+BER|BER00002|EZ|BER898|F|20180723|1|0|85.50|IHG
+BER|BER00003|DZ|BER848|U|20180721|2|0|101.59|MARR
+BER|BER00003|DZ|BER848|U|20180722|2|0|109.46|MARR
+BER|BER00003|DZ|BER848|U|20180723|2|1|176.01|MARR
+```
+
+## expected.csv
+
+```
+room_type meal;room_code;source;hotel_name;city_name;city_code;hotel_category;pax;adults;children;room_name;checkin;checkout;price
+EZ F;BER898;IHG;Crowne Plaza Berlin City Centre;Berlin;BER;4.0;1;1;0;Einzelzimmer;2018-07-21;2018-07-22;85.50
+EZ F;BER898;IHG;Crowne Plaza Berlin City Centre;Berlin;BER;4.0;1;1;0;Einzelzimmer;2018-07-22;2018-07-23;78.00
+EZ F;BER898;IHG;Crowne Plaza Berlin City Centre;Berlin;BER;4.0;1;1;0;Einzelzimmer;2018-07-23;2018-07-24;85.50
+DZ U;BER848;MARR;Berlin Marriott Hotel;Berlin;BER;5.0;2;2;0;Deluxe King;2018-07-21;2018-07-22;50.80
+DZ U;BER848;MARR;Berlin Marriott Hotel;Berlin;BER;5.0;2;2;0;Deluxe King;2018-07-22;2018-07-23;54.73
+DZ U;BER848;MARR;Berlin Marriott Hotel;Berlin;BER;5.0;3;2;1;Deluxe King;2018-07-23;2018-07-24;58.67
+```
+
+## hotels.json
+
+```
+{"id": "BER00002", "city_code": "BER", "name": "Crowne Plaza Berlin City Centre", "category": 4.0, "country_code": "DE", "city": "Berlin" }
+{"id": "BER00003", "city_code": "BER", "name": "Berlin Marriott Hotel", "category": 5.0, "country_code": "DE", "city": "Berlin" }
+```
+
+## room_names.csv
+
+```
+BER00003|MARR|Single Standard|BER849
+BER00003|MARR|Deluxe King|BER848
+BER00003|DOTW|SINGLE DELUXE|BER848
+BER00002|GTA|Standard|BER898
+BER00002|IHG|Einzelzimmer|BER898
+BER00002|MARR|Deluxe King Extra|BER848
+```

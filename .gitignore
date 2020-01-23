@@ -1,0 +1,14 @@
+### Global
+**/*.rs.bk
+**/*.csv
+**/*.json
+
+### Main dirs
+/.idea/
+/target/
+
+### Exclude
+!expected.csv
+!hotels.json
+!input.csv
+!room_names.csv
